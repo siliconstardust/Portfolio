@@ -1,0 +1,26 @@
+/* Boot sequence */
+.loader{display:block;padding:18vh 8vw;animation:out .5s 2s forwards}.loader p{margin:.2em 0;opacity:0;animation:ln .05s forwards;animation-delay:calc(var(--n)*.35s)}
+@keyframes ln{to{opacity:1}}
+/* Page reveal after boot: screen powers on, keys drop in, columns slide */
+.ready .screen{animation:poweron 1s .15s backwards}
+@keyframes poweron{0%{scale:1 .01;filter:brightness(6)}45%{scale:1 .01;filter:brightness(3)}70%{scale:1 1.04;filter:brightness(2)}100%{scale:1;filter:none}}
+.ready .keycap{animation:dropin .7s calc(.9s + var(--d)*.09s) cubic-bezier(.3,1.5,.5,1) backwards}
+@keyframes dropin{from{--lift:7cqw;opacity:0}to{--lift:.6cqw;opacity:1}}
+.ready .intro>*{animation:slidein .7s backwards}.ready .intro>*:nth-child(2){animation-delay:.1s}.ready .intro>*:nth-child(3){animation-delay:.2s}.ready .intro>*:nth-child(4){animation-delay:.3s}.ready .intro>*:nth-child(5){animation-delay:.4s}
+.ready .what li{animation:slidein .7s backwards}.ready .what li:nth-child(1){animation-delay:.9s}.ready .what li:nth-child(2){animation-delay:1s}.ready .what li:nth-child(3){animation-delay:1.1s}.ready .what li:nth-child(4){animation-delay:1.2s}.ready .what li:nth-child(5){animation-delay:1.3s}
+@keyframes slidein{from{opacity:0;translate:0 18px}}
+/* Mouse tilt */
+.device{transform:perspective(1400px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .25s ease-out}
+/* First key beckons until the visitor interacts */
+.keycap.beckon .skirt{animation:beck 1.8s ease-in-out infinite}
+@keyframes beck{50%{box-shadow:0 var(--lift) 0 0 var(--side),0 0 3cqw .8cqw #f7c600aa}}
+/* Popups open out of the key/button that was pressed, like a CRT turning on */
+.modal[open]{animation:crt .6s cubic-bezier(.2,.8,.2,1)}
+@keyframes crt{0%{opacity:0;transform:translate(var(--dx,0px),var(--dy,24px)) scale(.06,.02)}35%{opacity:1;transform:translate(calc(var(--dx,0px)*.45),calc(var(--dy,0px)*.45)) scale(.7,.02)}65%{transform:scale(1,.04)}100%{transform:none}}
+.modal[open] .modal-card{animation:flash .7s}@keyframes flash{0%{filter:brightness(3)}100%{filter:none}}
+.modal[open]::backdrop{animation:fade .4s}@keyframes fade{from{opacity:0}}
+.modal-body>*,.grid>*,.tl>li,.chips li{animation:rise .5s backwards}
+.modal-body>*{animation-delay:.35s}.grid>:nth-child(1),.tl>li:nth-child(1){animation-delay:.4s}.grid>:nth-child(2),.tl>li:nth-child(2){animation-delay:.48s}.grid>:nth-child(3),.tl>li:nth-child(3){animation-delay:.56s}.grid>:nth-child(4),.tl>li:nth-child(4){animation-delay:.64s}.grid>:nth-child(n+5),.tl>li:nth-child(n+5){animation-delay:.72s}
+@keyframes rise{from{opacity:0;translate:0 16px}}
+.pcard,.box,.btn{transition:transform .25s,border-color .25s}.pcard:hover,.box:hover{transform:translateY(-4px);border-color:var(--y)}.btn:hover{transform:translateY(-2px)}
+@media(prefers-reduced-motion:reduce){.loader{display:none}}
